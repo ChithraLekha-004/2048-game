@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { addRandomTwo } from "../utils/addRandomTwo";
 import { useArrowKeys } from "../hooks/useArrowKeys";
 import { moveDown, moveLeft, moveRight, moveUp } from "../utils/logic";
+import GameOverModal from "./GameOverModal";
 
 interface GameBoardProps {
   size: number;
@@ -11,44 +12,47 @@ const GameBoard: React.FC<GameBoardProps> = ({ size }) => {
   const totalCells = size * size;
   const [board, setBoard] = useState<number[]>(Array(totalCells).fill(0));
   const [score, setScore] = useState(0);
+  const [gameStatus, setGameStatus] = useState<"Playing" | "Game Over">(
+    "Playing"
+  );
 
   useEffect(() => {
-    let newBoard = addRandomTwo(board);
-    newBoard = addRandomTwo(newBoard);
+    let newBoard = addRandomTwo(board).board;
+    newBoard = addRandomTwo(newBoard).board;
     setBoard(newBoard);
   }, [size]);
 
   useArrowKeys({
     up: () => {
-      const { board: newBoard, score: newScore } = moveUp(board, size, score);
-      setBoard(newBoard);
+      const { gameStatus, score: newScore } = moveUp(board, size, score);
+      setBoard(gameStatus.board);
       setScore(newScore);
+      setGameStatus(gameStatus.status);
     },
     down: () => {
-      const { board: newBoard, score: newScore } = moveDown(board, size, score);
-      setBoard(newBoard);
+      const { gameStatus, score: newScore } = moveDown(board, size, score);
+      setBoard(gameStatus.board);
       setScore(newScore);
+      setGameStatus(gameStatus.status);
     },
     left: () => {
-      const { board: newBoard, score: newScore } = moveLeft(board, size, score);
-      setBoard(newBoard);
+      const { gameStatus, score: newScore } = moveLeft(board, size, score);
+      setBoard(gameStatus.board);
       setScore(newScore);
+      setGameStatus(gameStatus.status);
     },
     right: () => {
-      const { board: newBoard, score: newScore } = moveRight(
-        board,
-        size,
-        score
-      );
-      setBoard(newBoard);
+      const { gameStatus, score: newScore } = moveRight(board, size, score);
+      setBoard(gameStatus.board);
       setScore(newScore);
+      setGameStatus(gameStatus.status);
     },
   });
 
   const handleReset = () => {
     const emptyBoard = Array(size * size).fill(0);
-    const boardWithTwo = addRandomTwo(emptyBoard);
-    setBoard(addRandomTwo(boardWithTwo));
+    let newBoard = addRandomTwo(emptyBoard).board;
+    newBoard = addRandomTwo(newBoard).board;
     setScore(0);
   };
 
@@ -85,6 +89,14 @@ const GameBoard: React.FC<GameBoardProps> = ({ size }) => {
       >
         Reset
       </button>
+      {gameStatus === "Game Over" && (
+        <GameOverModal
+          onPlayAgain={() => {
+            handleReset(), setGameStatus("Playing");
+          }}
+          score={score}
+        />
+      )}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import { addRandomTwo } from "./addRandomTwo";
 
-export const moveUp = (board: number[], size: number, score:number) => {
+export const moveUp = (board: number[], size: number, score: number) => {
   const newBoard = [...board];
   const merged: Boolean[] = Array(size * size).fill(false);
   for (let i = 0; i < size; i++) {
@@ -23,10 +23,10 @@ export const moveUp = (board: number[], size: number, score:number) => {
       }
     }
   }
- return { board: addRandomTwo(newBoard), score };
+  return { gameStatus: addRandomTwo(newBoard), score };
 };
 
-export const moveDown = (board: number[], size: number, score:number) => {
+export const moveDown = (board: number[], size: number, score: number) => {
   const newBoard = [...board];
   const merged: boolean[] = Array(size * size).fill(false);
 
@@ -50,10 +50,10 @@ export const moveDown = (board: number[], size: number, score:number) => {
       }
     }
   }
-  return { board: addRandomTwo(newBoard), score };
+  return { gameStatus: addRandomTwo(newBoard), score };
 };
 
-export const moveLeft = (board: number[], size: number, score:number) => {
+export const moveLeft = (board: number[], size: number, score: number) => {
   const newBoard = [...board];
   const merged: boolean[] = Array(size * size).fill(false);
 
@@ -78,10 +78,10 @@ export const moveLeft = (board: number[], size: number, score:number) => {
       }
     }
   }
-  return { board: addRandomTwo(newBoard), score };
+  return { gameStatus: addRandomTwo(newBoard), score };
 };
 
-export const moveRight = (board: number[], size: number, score:number) => {
+export const moveRight = (board: number[], size: number, score: number) => {
   const newBoard = [...board];
   const merged: boolean[] = Array(size * size).fill(false);
 
@@ -106,5 +106,5 @@ export const moveRight = (board: number[], size: number, score:number) => {
       }
     }
   }
-  return { board: addRandomTwo(newBoard), score };
+  return { gameStatus: addRandomTwo(newBoard), score };
 };
