@@ -45,6 +45,13 @@ const GameBoard: React.FC<GameBoardProps> = ({ size }) => {
     },
   });
 
+  const handleReset = () => {
+    const emptyBoard = Array(size * size).fill(0);
+    const boardWithTwo = addRandomTwo(emptyBoard);
+    setBoard(addRandomTwo(boardWithTwo));
+    setScore(0);
+  };
+
   return (
     <div className="flex flex-col items-center gap-4 m-5">
       <h2 className="text-xl font-semibold">
@@ -72,6 +79,12 @@ const GameBoard: React.FC<GameBoardProps> = ({ size }) => {
           </div>
         ))}
       </div>
+      <button
+        onClick={handleReset}
+        className="mt-4 px-6 py-2 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transition-colors"
+      >
+        Reset
+      </button>
     </div>
   );
 };
