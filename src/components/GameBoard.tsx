@@ -53,6 +53,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ size }) => {
     const emptyBoard = Array(size * size).fill(0);
     let newBoard = addRandomTwo(emptyBoard).board;
     newBoard = addRandomTwo(newBoard).board;
+    setBoard(newBoard);
     setScore(0);
   };
 

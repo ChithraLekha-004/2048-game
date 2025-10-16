@@ -1,8 +1,17 @@
-import { addRandomTwo } from "./addRandomTwo";
+import { addRandomTwo, emptyIndicesCheck } from "./addRandomTwo";
+import hasPossibleMoves from "./hasPossibleMoves";
 
-export const moveUp = (board: number[], size: number, score: number) => {
+export const moveUp = (
+  board: number[],
+  size: number,
+  score: number
+): {
+  gameStatus: { board: number[]; status: "Playing" | "Game Over" };
+  score: number;
+} => {
   const newBoard = [...board];
   const merged: Boolean[] = Array(size * size).fill(false);
+  let moved = false;
   for (let i = 0; i < size; i++) {
     for (let j = i + size; j < size * size; j += size) {
       if (newBoard[j] == 0) continue;
@@ -12,6 +21,7 @@ export const moveUp = (board: number[], size: number, score: number) => {
             newBoard[k] = newBoard[j];
             newBoard[j] = 0;
             j = k;
+            moved = true;
           } else if (newBoard[k] == newBoard[j] && !merged[k]) {
             newBoard[k] = newBoard[k] * 2;
             score += newBoard[k];
@@ -23,12 +33,26 @@ export const moveUp = (board: number[], size: number, score: number) => {
       }
     }
   }
+  if (!moved && !merged.includes(true)) {
+    if(emptyIndicesCheck(newBoard).length === 0 && !hasPossibleMoves(newBoard)){
+      return { gameStatus: { board, status: "Game Over" }, score };
+    }
+    return { gameStatus: { board, status: "Playing" }, score };
+  }
   return { gameStatus: addRandomTwo(newBoard), score };
 };
 
-export const moveDown = (board: number[], size: number, score: number) => {
+export const moveDown = (
+  board: number[],
+  size: number,
+  score: number
+): {
+  gameStatus: { board: number[]; status: "Playing" | "Game Over" };
+  score: number;
+} => {
   const newBoard = [...board];
   const merged: boolean[] = Array(size * size).fill(false);
+  let moved = false;
 
   for (let i = 0; i < size; i++) {
     for (let j = (size - 2) * size + i; j >= 0; j -= size) {
@@ -39,6 +63,7 @@ export const moveDown = (board: number[], size: number, score: number) => {
             newBoard[k] = newBoard[j];
             newBoard[j] = 0;
             j = k;
+            moved = true;
           } else if (newBoard[k] === newBoard[j] && !merged[k]) {
             newBoard[k] *= 2;
             score += newBoard[k];
@@ -50,12 +75,26 @@ export const moveDown = (board: number[], size: number, score: number) => {
       }
     }
   }
+  if (!moved && !merged.includes(true)) {
+    if(emptyIndicesCheck(newBoard).length === 0 && !hasPossibleMoves(newBoard)){
+      return { gameStatus: { board, status: "Game Over" }, score };
+    }
+    return { gameStatus: { board, status: "Playing" }, score };
+  }
   return { gameStatus: addRandomTwo(newBoard), score };
 };
 
-export const moveLeft = (board: number[], size: number, score: number) => {
+export const moveLeft = (
+  board: number[],
+  size: number,
+  score: number
+): {
+  gameStatus: { board: number[]; status: "Playing" | "Game Over" };
+  score: number;
+} => {
   const newBoard = [...board];
   const merged: boolean[] = Array(size * size).fill(false);
+  let moved = false;
 
   for (let i = 0; i < size; i++) {
     // row
@@ -67,6 +106,7 @@ export const moveLeft = (board: number[], size: number, score: number) => {
             newBoard[k] = newBoard[j];
             newBoard[j] = 0;
             j = k;
+            moved = true;
           } else if (newBoard[k] === newBoard[j] && !merged[k]) {
             newBoard[k] *= 2;
             score += newBoard[k];
@@ -78,12 +118,26 @@ export const moveLeft = (board: number[], size: number, score: number) => {
       }
     }
   }
+  if (!moved && !merged.includes(true)) {
+    if(emptyIndicesCheck(newBoard).length === 0 && !hasPossibleMoves(newBoard)){
+      return { gameStatus: { board, status: "Game Over" }, score };
+    }
+    return { gameStatus: { board, status: "Playing" }, score };
+  }
   return { gameStatus: addRandomTwo(newBoard), score };
 };
 
-export const moveRight = (board: number[], size: number, score: number) => {
+export const moveRight = (
+  board: number[],
+  size: number,
+  score: number
+): {
+  gameStatus: { board: number[]; status: "Playing" | "Game Over" };
+  score: number;
+} => {
   const newBoard = [...board];
   const merged: boolean[] = Array(size * size).fill(false);
+  let moved = false;
 
   for (let i = 0; i < size; i++) {
     // row
@@ -95,6 +149,7 @@ export const moveRight = (board: number[], size: number, score: number) => {
             newBoard[k] = newBoard[j];
             newBoard[j] = 0;
             j = k;
+            moved = true;
           } else if (newBoard[k] === newBoard[j] && !merged[k]) {
             newBoard[k] *= 2;
             score += newBoard[k];
@@ -105,6 +160,12 @@ export const moveRight = (board: number[], size: number, score: number) => {
         }
       }
     }
+  }
+  if (!moved && !merged.includes(true)) {
+    if(emptyIndicesCheck(newBoard).length === 0 && !hasPossibleMoves(newBoard)){
+      return { gameStatus: { board, status: "Game Over" }, score };
+    }
+    return { gameStatus: { board, status: "Playing" }, score };
   }
   return { gameStatus: addRandomTwo(newBoard), score };
 };
