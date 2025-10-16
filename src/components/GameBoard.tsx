@@ -1,23 +1,60 @@
 import React, { useEffect, useState } from "react";
 import { addRandomTwo } from "../utils/addRandomTwo";
+import { useArrowKeys } from "../hooks/useArrowKeys";
+import { moveDown, moveLeft, moveRight, moveUp } from "../utils/logic";
 
 interface GameBoardProps {
   size: number;
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({ size }) => {
-
   const totalCells = size * size;
   const [board, setBoard] = useState<number[]>(Array(totalCells).fill(0));
+  const [score, setScore] = useState(0);
+
   useEffect(() => {
     let newBoard = addRandomTwo(board);
-    newBoard = addRandomTwo(newBoard); 
+    newBoard = addRandomTwo(newBoard);
     setBoard(newBoard);
   }, [size]);
 
+  useArrowKeys({
+    up: () => {
+      const { board: newBoard, score: newScore } = moveUp(board, size, score);
+      setBoard(newBoard);
+      setScore(newScore);
+    },
+    down: () => {
+      const { board: newBoard, score: newScore } = moveDown(board, size, score);
+      setBoard(newBoard);
+      setScore(newScore);
+    },
+    left: () => {
+      const { board: newBoard, score: newScore } = moveLeft(board, size, score);
+      setBoard(newBoard);
+      setScore(newScore);
+    },
+    right: () => {
+      const { board: newBoard, score: newScore } = moveRight(
+        board,
+        size,
+        score
+      );
+      setBoard(newBoard);
+      setScore(newScore);
+    },
+  });
+
   return (
     <div className="flex flex-col items-center gap-4 m-5">
-      <h2 className="text-xl font-semibold">2048 Game ({size} × {size})</h2>
+      <h2 className="text-xl font-semibold">
+        2048 Game ({size} × {size})
+      </h2>
+
+      <div className="flex items-center gap-2 bg-yellow-200 px-4 py-2 rounded-xl shadow-md">
+        <span className="text-gray-700 font-medium">Score:</span>
+        <span className="text-2xl font-bold text-gray-900">{score}</span>
+      </div>
 
       <div
         className="grid gap-2 bg-gray-400 p-3 rounded-xl shadow-md"
