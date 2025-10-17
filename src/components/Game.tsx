@@ -16,7 +16,7 @@ const Game = () => {
   };
 
   return (
-    <div className="h-screen overflow-y-scroll flex flex-col items-center justify-center bg-gray-100">
+    <div className="min-h-screen overflow-y-auto flex flex-col items-center bg-gray-100 py-8">
       {(!boardSize || showModal) && (
         <BoardSizeModal onConfirm={handleBoardSizeConfirm} />
       )}
