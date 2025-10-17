@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { addRandomTwo } from "../utils/addRandomTwo";
+import { addRandomTile } from "../utils/addRandomTile";
 import { useArrowKeys } from "../hooks/useArrowKeys";
 import { moveDown, moveLeft, moveRight, moveUp } from "../utils/logic";
 import GameOverModal from "./GameOverModal";
@@ -17,8 +17,8 @@ const GameBoard: React.FC<GameBoardProps> = ({ size }) => {
   );
 
   useEffect(() => {
-    let newBoard = addRandomTwo(board).board;
-    newBoard = addRandomTwo(newBoard).board;
+    let newBoard = addRandomTile(board).board;
+    newBoard = addRandomTile(newBoard).board;
     setBoard(newBoard);
   }, [size]);
 
@@ -51,8 +51,8 @@ const GameBoard: React.FC<GameBoardProps> = ({ size }) => {
 
   const handleReset = () => {
     const emptyBoard = Array(size * size).fill(0);
-    let newBoard = addRandomTwo(emptyBoard).board;
-    newBoard = addRandomTwo(newBoard).board;
+    let newBoard = addRandomTile(emptyBoard).board;
+    newBoard = addRandomTile(newBoard).board;
     setBoard(newBoard);
     setScore(0);
   };

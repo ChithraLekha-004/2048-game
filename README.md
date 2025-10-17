@@ -22,32 +22,37 @@ Responsive, clean UI built with Tailwind CSS
 Start the game by selecting the board size (e.g., 4×4).
 
 Use the arrow keys to move tiles:
-
-⬆️ Up
-
-⬇️ Down
-
-⬅️ Left
-
-➡️ Right
+⬆️ Up ⬇️ Down ⬅️ Left ➡️ Right
 
 When two tiles with the same number collide, they merge into one tile with their sum.
 
-After every valid move, a new tile (2) appears in a random empty cell.
+After every valid move, a new tile appears in a random empty cell:
+
+90% of the time, the new tile is a 2
+
+10% of the time, the new tile is a 4
+
+(This design follows the original 2048 game’s probability to maintain balance and gradual difficulty.)
 
 The goal is to create a tile with 2048.
 
 The game ends when no more valid moves are possible.
 
 ⚙️ Installation & Running the Game
-1. Clone the Repository
+
+Clone the Repository
+
 git clone https://github.com/ChithraLekha-004/2048-game.git
 cd 2048-react-game
 
-2. Install Dependencies
+
+Install Dependencies
+
 npm install
 
-3. Run the Development Server
+
+Run the Development Server
+
 npm run dev
 
 
@@ -68,7 +73,8 @@ Vite – Fast development environment
 Board Representation
 
 The board is a one-dimensional array representing an N×N grid.
-For example, a 4×4 board is stored as an array of 16 elements.
+
+Example: a 4×4 board is stored as an array of 16 elements.
 
 Move Logic
 
@@ -82,8 +88,13 @@ Tracks and updates the score
 
 Tile Generation
 
-After every valid move, one new tile with value 2 is added in a random empty cell.
-New tiles are not added if the move had no effect on the board.
+After every valid move, a new tile is added in a random empty cell.
+
+90% probability of generating a tile with value 2 and 10% probability for 4.
+
+This approach mirrors the original 2048 mechanics and ensures smooth progression in difficulty.
+
+New tiles are not added if the move did not change the board.
 
 Game Over Check
 
@@ -96,7 +107,7 @@ A reusable hook useArrowKeys() handles keyboard events cleanly.
 
 UI Components
 
-BoardSizeModal – To choose board size before game starts
+BoardSizeModal – To choose board size before the game starts
 
 GameBoard – Displays the board, score, and reset options
 

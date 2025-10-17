@@ -1,6 +1,6 @@
 import hasPossibleMoves from "./hasPossibleMoves";
 
-export function addRandomTwo(board: number[]): {
+export function addRandomTile(board: number[]): {
   board: number[];
   status: "Playing" | "Game Over";
 } {
@@ -12,7 +12,7 @@ export function addRandomTwo(board: number[]): {
     emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
 
   const newBoard = [...board];
-  newBoard[randomIndex] = 2;
+  newBoard[randomIndex] = newBoard[randomIndex] = Math.random() < 0.9 ? 2 : 4;
   emptyIndices = emptyIndicesCheck(newBoard);
 //   console.log(emptyIndices,hasPossibleMoves(board))
   return {

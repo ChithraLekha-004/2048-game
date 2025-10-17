@@ -1,4 +1,4 @@
-import { addRandomTwo, emptyIndicesCheck } from "./addRandomTwo";
+import { addRandomTile, emptyIndicesCheck } from "./addRandomTile";
 import hasPossibleMoves from "./hasPossibleMoves";
 
 export const moveUp = (
@@ -39,7 +39,7 @@ export const moveUp = (
     }
     return { gameStatus: { board, status: "Playing" }, score };
   }
-  return { gameStatus: addRandomTwo(newBoard), score };
+  return { gameStatus: addRandomTile(newBoard), score };
 };
 
 export const moveDown = (
@@ -81,7 +81,7 @@ export const moveDown = (
     }
     return { gameStatus: { board, status: "Playing" }, score };
   }
-  return { gameStatus: addRandomTwo(newBoard), score };
+  return { gameStatus: addRandomTile(newBoard), score };
 };
 
 export const moveLeft = (
@@ -124,7 +124,7 @@ export const moveLeft = (
     }
     return { gameStatus: { board, status: "Playing" }, score };
   }
-  return { gameStatus: addRandomTwo(newBoard), score };
+  return { gameStatus: addRandomTile(newBoard), score };
 };
 
 export const moveRight = (
@@ -167,5 +167,5 @@ export const moveRight = (
     }
     return { gameStatus: { board, status: "Playing" }, score };
   }
-  return { gameStatus: addRandomTwo(newBoard), score };
+  return { gameStatus: addRandomTile(newBoard), score };
 };
